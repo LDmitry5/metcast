@@ -3,6 +3,7 @@
     <el-card class="search-card">
       <el-input
         v-model="cityInput"
+        ref="searchInput"
         placeholder="Введите название города"
         size="large"
         clearable
@@ -19,12 +20,14 @@
 import { ref } from "vue";
 import { Search } from "@element-plus/icons-vue";
 
+const searchInput = ref<HTMLInputElement | null>(null);
+defineExpose({ focus: () => searchInput.value?.focus() });
+
 const emit = defineEmits<{
   search: [city: string];
 }>();
 
 const cityInput = ref("");
-
 const handleSearch = () => {
   const city = cityInput.value.trim();
   if (city) {

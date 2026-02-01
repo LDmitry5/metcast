@@ -8,7 +8,7 @@
     <el-card v-else-if="error" class="weather-card error-card">
       <el-result icon="error" :title="error" sub-title="Попробуйте еще раз или используйте поиск">
         <template #extra>
-          <el-button type="primary" @click="$emit('retry')">Попробовать снова</el-button>
+          <el-button type="primary" @click="$emit('retry')">Искать город</el-button>
         </template>
       </el-result>
     </el-card>

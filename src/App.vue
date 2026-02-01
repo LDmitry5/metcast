@@ -9,8 +9,8 @@
         <p>Прогноз погоды</p>
       </el-header>
       <el-main>
-        <WeatherSearch @search="handleSearch" />
-        <WeatherDisplay :weather="weather" :loading="loading" :error="error" />
+        <WeatherSearch @search="handleSearch" ref="weatherSearchRef" />
+        <WeatherDisplay :weather="weather" :loading="loading" :error="error" @retry="handleRetry" />
       </el-main>
     </el-container>
   </div>
@@ -26,6 +26,7 @@ import type { WeatherData } from "./types/weather";
 const weather = ref<WeatherData | null>(null);
 const loading = ref(false);
 const error = ref<string | null>(null);
+const weatherSearchRef = ref<InstanceType<typeof WeatherSearch> | null>(null);
 
 const fetchWeatherByCoords = async (lat: number, lon: number) => {
   try {
@@ -51,6 +52,11 @@ const handleSearch = async (city: string) => {
   } finally {
     loading.value = false;
   }
+};
+
+const handleRetry = () => {
+  error.value = null;
+  weatherSearchRef.value?.focus();
 };
 
 onMounted(async () => {
