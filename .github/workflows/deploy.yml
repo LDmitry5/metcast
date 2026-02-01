@@ -1,5 +1,8 @@
 name: Deploy to GitHub Pages
 
+permissions:
+  contents: write # Разрешает запись в репозиторий
+
 on:
   push:
     branches: [main] # Триггер на push в ветку main
